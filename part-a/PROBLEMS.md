@@ -2,9 +2,11 @@
 
 ## Summary
 
-- Total problems documented: 6 (3 given + 3 self-discovered)
-- Platform explored: irctc.co.in (live)
+- Total problems documented: 6
+- 3 given + 3 self-discovered
+- Platform explored: irctc.co.in
 - Devices used: Desktop Chrome, Mobile Chrome
+- Date explored: 21 April 2026
 
 ---
 
