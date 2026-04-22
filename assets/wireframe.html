@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Railway UX Wireframes — IRCTC Style</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111;
+    --dark: #333;
+    --mid: #666;
+    --light: #999;
+    --pale: #ccc;
+    --ghost: #e8e8e8;
+    --white: #f5f5f5;
+    --paper: #fafafa;
+    --border: 1.5px solid #333;
+    --border-light: 1px solid #ccc;
+    --radius: 6px;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  body {
+    background: #ebebeb;
+    font-family: var(--sans);
+    color: var(--black);
+    padding: 40px 20px;
+  }
+
+  h1.page-title {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .page-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--light);
+    text-align: center;
+    margin-bottom: 48px;
+    letter-spacing: 1px;
+  }
+
+  /* Grid layout */
+  .wireframe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 48px 36px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Wireframe wrapper */
+  .wf-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .wf-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+    padding-left: 2px;
+  }
+
+  .wf-num {
+    display: inline-block;
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    margin-right: 6px;
+  }
+
+  /* Phone shell */
+  .phone {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 2.5px solid var(--black);
+    border-radius: 28px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 4px 4px 0 var(--dark);
+  }
+
+  .phone-notch {
+    width: 90px;
+    height: 20px;
+    background: var(--black);
+    border-radius: 0 0 12px 12px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+  }
+
+  .phone-screen {
+    padding: 0 0 16px 0;
+    min-height: 560px;
+    overflow: hidden;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px 10px;
+    border-bottom: var(--border);
+    background: var(--paper);
+  }
+  .header-back {
+    width: 26px;
+    height: 26px;
+    border: var(--border);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .header-title {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .header-right {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--mid);
+    background: var(--ghost);
+    padding: 3px 7px;
+    border: var(--border-light);
+    border-radius: 3px;
+  }
+
+  /* Generic box */
+  .box {
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    margin: 0 12px 10px;
+    background: var(--white);
+    position: relative;
+  }
+  .box.filled {
+    background: var(--ghost);
+  }
+  .box.dashed {
+    border: 1.5px dashed var(--pale);
+    background: transparent;
+  }
+  .box.dark {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+  }
+  .box.highlight {
+    border: 2px solid var(--black);
+    background: var(--ghost);
+  }
+
+  .box-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 5px;
+  }
+
+  .box-value {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -1px;
+  }
+
+  .box-value.lg {
+    font-size: 28px;
+  }
+
+  /* Section divider */
+  .section-gap { height: 10px; }
+  .section-divider {
+    border-top: var(--border-light);
+    margin: 8px 12px;
+  }
+
+  /* Row */
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    margin-bottom: 8px;
+  }
+  .row.between { justify-content: space-between; }
+  .row.center { justify-content: center; }
+
+  /* Text styles */
+  .t-mono { font-family: var(--mono); }
+  .t-sm { font-size: 10px; }
+  .t-xs { font-size: 9px; }
+  .t-md { font-size: 12px; }
+  .t-lg { font-size: 14px; }
+  .t-bold { font-weight: 600; }
+  .t-mid { color: var(--mid); }
+  .t-light { color: var(--light); }
+  .t-center { text-align: center; }
+  .t-dark { color: var(--black); }
+
+  /* Progress bar */
+  .progress-track {
+    height: 8px;
+    background: var(--ghost);
+    border: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 6px 0 4px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: repeating-linear-gradient(
+      45deg, #333 0px, #333 4px, #777 4px, #777 8px
+    );
+  }
+
+  /* Buttons */
+  .btn {
+    display: block;
+    width: calc(100% - 24px);
+    margin: 6px 12px;
+    padding: 11px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    background: var(--paper);
+    color: var(--black);
+  }
+  .btn.primary {
+    background: var(--black);
+    color: var(--white);
+  }
+  .btn.disabled {
+    background: var(--ghost);
+    color: var(--pale);
+    border-color: var(--pale);
+  }
+  .btn.outline {
+    background: transparent;
+  }
+  .btn.sm {
+    padding: 7px;
+    font-size: 10px;
+    width: auto;
+    margin: 0;
+    display: inline-block;
+  }
+
+  /* Tags / chips */
+  .chip-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 0 12px;
+    margin-bottom: 10px;
+  }
+  .chip {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 9px;
+    border: var(--border);
+    border-radius: 20px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .chip.active {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+  }
+  .chip .x {
+    font-size: 10px;
+    opacity: 0.6;
+  }
+
+  /* Train card */
+  .train-card {
+    border: var(--border);
+    border-radius: var(--radius);
+    margin: 0 12px 10px;
+    background: var(--white);
+    overflow: hidden;
+  }
+  .train-card-top {
+    padding: 9px 12px 7px;
+    border-bottom: var(--border-light);
+  }
+  .train-card-bottom {
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .time-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .time-big {
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .time-arrow {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--mid);
+    flex: 1;
+    text-align: center;
+    border-top: 1px dashed var(--pale);
+    position: relative;
+    top: 0px;
+  }
+
+  /* Form fields */
+  .field {
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 8px 10px;
+    margin: 0 12px 8px;
+    background: var(--white);
+  }
+  .field-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+  .field-value {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .field-placeholder {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--pale);
+    font-style: italic;
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: var(--ghost);
+    border-bottom: var(--border-light);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--mid);
+  }
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--mid);
+    flex-shrink: 0;
+  }
+  .status-dot.pulse {
+    background: var(--dark);
+    box-shadow: 0 0 0 2px var(--pale);
+  }
+
+  /* Modal overlay */
+  .modal-overlay {
+    position: relative;
+    margin: 0 12px 10px;
+  }
+  .modal-bg {
+    height: 80px;
+    background: repeating-linear-gradient(
+      -45deg, var(--ghost) 0px, var(--ghost) 3px, var(--white) 3px, var(--white) 8px
+    );
+    border-radius: var(--radius);
+    border: var(--border-light);
+    opacity: 0.5;
+  }
+  .modal-box {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    right: 10px;
+    background: var(--paper);
+    border: 2px solid var(--black);
+    border-radius: var(--radius);
+    padding: 14px 12px;
+    box-shadow: 3px 3px 0 var(--dark);
+  }
+
+  /* Annotation system */
+  .annotation-track {
+    display: flex;
+    gap: 16px;
+    margin-top: 14px;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .annotation-box {
+    flex: 1;
+    border: 1.5px dashed var(--pale);
+    border-radius: 4px;
+    padding: 8px 10px;
+    background: transparent;
+  }
+  .annotation-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .annotation-item {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--mid);
+    line-height: 1.6;
+    display: flex;
+    gap: 4px;
+    align-items: flex-start;
+  }
+  .annotation-item::before {
+    content: "→";
+    flex-shrink: 0;
+    color: var(--pale);
+  }
+
+  /* Side annotations (for phone) */
+  .phone-with-annotations {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .side-annotations {
+    position: absolute;
+    right: -148px;
+    top: 40px;
+    width: 136px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .side-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+  .side-note-line {
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  /* Mini state */
+  .mini-state {
+    max-width: 320px;
+    margin: 16px auto 0;
+    border: 2px dashed var(--dark);
+    border-radius: var(--radius);
+    padding: 12px;
+    background: var(--paper);
+  }
+  .mini-state-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+
+  /* Two-col comparison */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .compare-phone {
+    background: var(--paper);
+    border: 2.5px solid var(--black);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 3px 3px 0 var(--dark);
+  }
+  .compare-notch {
+    width: 60px;
+    height: 14px;
+    background: var(--black);
+    border-radius: 0 0 8px 8px;
+    margin: 0 auto;
+  }
+  .compare-screen {
+    padding: 0 0 12px;
+    min-height: 480px;
+  }
+  .compare-label-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+  .cross { color: var(--pale); }
+  .check { color: var(--white); }
+
+  /* Cramped element demo */
+  .cramped-row {
+    display: flex;
+    gap: 2px;
+    padding: 0 4px;
+    margin-bottom: 4px;
+    overflow: hidden;
+  }
+  .cramped-btn {
+    flex: 1;
+    padding: 3px 1px;
+    font-size: 8px;
+    font-family: var(--mono);
+    text-align: center;
+    border: 1px solid var(--pale);
+    background: var(--ghost);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 2px;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--pale);
+    text-align: center;
+    padding: 6px;
+    border-top: var(--border-light);
+  }
+
+  /* Refund */
+  .refund-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: var(--border-light);
+  }
+  .refund-row:last-child { border-bottom: none; }
+  .refund-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0 0;
+    border-top: 2px solid var(--black);
+    margin-top: 4px;
+  }
+
+  /* Checkbox */
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 0 12px;
+    margin-bottom: 10px;
+  }
+  .checkbox-box {
+    width: 16px;
+    height: 16px;
+    border: var(--border);
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+  .checkbox-text {
+    font-family: var(--sans);
+    font-size: 10px;
+    color: var(--dark);
+    line-height: 1.5;
+  }
+
+  /* Footer links */
+  .footer-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding: 10px 12px 0;
+    border-top: var(--border-light);
+    margin: 0 0;
+  }
+  .footer-link {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--mid);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Timer */
+  .timer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 9px;
+    border: var(--border);
+    border-radius: 3px;
+    background: var(--ghost);
+  }
+  .timer-badge.warning {
+    border-color: var(--dark);
+    background: var(--dark);
+    color: var(--white);
+  }
+
+  /* Token */
+  .token-display {
+    text-align: center;
+    padding: 16px 12px 10px;
+  }
+  .token-num {
+    font-family: var(--mono);
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -2px;
+    border: 2.5px solid var(--black);
+    display: inline-block;
+    padding: 4px 24px;
+    border-radius: var(--radius);
+    background: var(--ghost);
+  }
+  .token-sub {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--mid);
+    letter-spacing: 2px;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+
+  /* Info section */
+  .info-section {
+    border: 1.5px dashed var(--pale);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    margin: 0 12px 10px;
+  }
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--mid);
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+  .info-row:last-child { margin-bottom: 0; }
+  .info-icon { flex-shrink: 0; color: var(--light); }
+
+  /* Alert box */
+  .alert {
+    margin: 0 12px 10px;
+    padding: 9px 12px;
+    border: var(--border);
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--ghost);
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+  }
+  .alert.error {
+    border-color: var(--dark);
+    background: var(--white);
+    border-left: 3px solid var(--dark);
+  }
+
+  /* Seat pref */
+  .pax-card {
+    border: var(--border);
+    border-radius: var(--radius);
+    margin: 0 12px 10px;
+    overflow: hidden;
+  }
+  .pax-header {
+    background: var(--black);
+    color: var(--white);
+    padding: 6px 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+  .pax-body {
+    padding: 10px 12px;
+    background: var(--white);
+  }
+  .pax-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    align-items: center;
+  }
+  .pax-field {
+    flex: 1;
+    border: var(--border-light);
+    border-radius: 3px;
+    padding: 4px 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--ghost);
+  }
+
+  /* Berth lock */
+  .berth-lock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid var(--black);
+    border-radius: var(--radius);
+    padding: 8px 12px;
+    background: var(--ghost);
+    margin: 0 12px 10px;
+  }
+  .berth-left {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .berth-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 3px 8px;
+    background: var(--black);
+    color: var(--white);
+    border-radius: 3px;
+    letter-spacing: 1px;
+  }
+
+  /* Summary card */
+  .summary-card {
+    border: var(--border-light);
+    border-radius: var(--radius);
+    margin: 0 12px 10px;
+    background: var(--white);
+    overflow: hidden;
+  }
+  .summary-header {
+    background: var(--ghost);
+    padding: 5px 12px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--mid);
+    border-bottom: var(--border-light);
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border-bottom: var(--border-light);
+    font-family: var(--mono);
+    font-size: 10px;
+  }
+  .summary-row:last-child { border-bottom: none; }
+
+  /* Sticky bar */
+  .sticky-bar {
+    border-top: var(--border);
+    padding: 10px 12px 6px;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  /* Autosave indicator */
+  .autosave-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    background: var(--ghost);
+    border-bottom: var(--border-light);
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--mid);
+  }
+
+  /* Session timer */
+  .session-timer {
+    position: absolute;
+    top: 52px;
+    right: 12px;
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    z-index: 5;
+  }
+
+  /* Empty state */
+  .empty-state {
+    padding: 32px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .empty-icon {
+    width: 48px;
+    height: 48px;
+    border: 2px dashed var(--pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--pale);
+    margin-bottom: 4px;
+  }
+
+  /* Wide wrapper for comparison */
+  .wide-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">Railway UX Wireframes</h1>
+<p class="page-sub">Low-fidelity · Grayscale · Mobile-first · IRCTC Style System</p>
+
+<div class="wireframe-grid">
+
+  <!-- ============================================
+       WIREFRAME 1: TATKAL SMART QUEUE
+  ============================================ -->
+  <div class="wf-wrapper">
+    <div class="wf-label"><span class="wf-num">01</span> Tatkal Smart Queue</div>
+
+    <div style="position: relative; max-width: 320px; margin: 0 auto;">
+      <div class="phone" style="max-width: 320px;">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+
+          <!-- Header -->
+          <div class="header">
+            <div class="header-back">←</div>
+            <div class="header-title">Tatkal Queue</div>
+            <div class="header-right">Live</div>
+          </div>
+
+          <!-- Token -->
+          <div class="token-display">
+            <div class="token-num">#2481</div>
+            <div class="token-sub">Your Queue Token</div>
+          </div>
+
+          <!-- Queue position card -->
+          <div class="box highlight" style="margin-bottom: 8px;">
+            <div class="box-label">Queue Position</div>
+            <div style="display: flex; align-items: baseline; gap: 6px;">
+              <div class="box-value lg">12</div>
+              <div style="font-family: var(--mono); font-size: 11px; color: var(--mid);">ahead of you</div>
+            </div>
+            <div class="progress-track" style="margin-top: 8px;">
+              <div class="progress-fill" style="width: 35%;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-family: var(--mono); font-size: 9px; color: var(--light); margin-top: 3px;">
+              <span>Queue start</span><span>Your turn</span>
+            </div>
+          </div>
+
+          <!-- Wait time -->
+          <div style="display: flex; gap: 8px; padding: 0 12px; margin-bottom: 10px;">
+            <div class="box" style="flex: 1; margin: 0; text-align: center;">
+              <div class="box-label">Est. Wait</div>
+              <div style="font-family: var(--mono); font-size: 16px; font-weight: 600;">2:30</div>
+              <div style="font-family: var(--mono); font-size: 9px; color: var(--light);">min</div>
+            </div>
+            <div class="box" style="flex: 1; margin: 0; text-align: center;">
+              <div class="box-label">Slot Opens</div>
+              <div style="font-family: var(--mono); font-size: 16px; font-weight: 600;">00:47</div>
+              <div style="font-family: var(--mono); font-size: 9px; color: var(--light);">countdown</div>
+            </div>
+          </div>
+
+          <!-- Status text -->
+          <div class="status-bar">
+            <div class="status-dot pulse"></div>
+            <span>You are in line. Do not refresh.</span>
+          </div>
+
+          <div class="section-gap"></div>
+
+          <!-- Info section -->
+          <div class="info-section">
+            <div class="box-label" style="margin: 0 0 6px;">Slot Rules</div>
+            <div class="info-row">
+              <div class="info-icon">i</div>
+              <div>Slot reserved for <strong>3 minutes</strong> once opened</div>
+            </div>
+            <div class="info-row">
+              <div class="info-icon">!</div>
+              <div>If missed, next user proceeds automatically</div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <button class="btn disabled">Booking Opens Soon</button>
+          <button class="btn outline">Notify Me When Ready</button>
+
+          <!-- Footer -->
+          <div class="footer-links">
+            <a class="footer-link" href="#">FAQ</a>
+            <a class="footer-link" href="#">Help</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Side annotations -->
+      <div style="position: absolute; right: -152px; top: 50px; width: 140px;">
+        <div class="side-note">
+          <div class="side-note-line">→</div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); line-height: 1.4;">Reduces server overload at peak time</div>
+        </div>
+        <div class="side-note" style="margin-top: 28px;">
+          <div class="side-note-line">→</div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); line-height: 1.4;">Prevents refresh spam & race conditions</div>
+        </div>
+        <div class="side-note" style="margin-top: 28px;">
+          <div class="side-note-line">→</div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); line-height: 1.4;">Transparent wait time = user trust</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini state: Your turn -->
+    <div class="mini-state">
+      <div class="mini-state-label">Alt State — Your Turn Now</div>
+      <div class="box dark" style="margin: 0 0 8px; text-align: center;">
+        <div style="font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 1px;">🟢 Your turn!</div>
+        <div style="font-family: var(--mono); font-size: 9px; color: var(--pale); margin-top: 3px;">Slot reserved · Expires in 2:59</div>
+      </div>
+      <button class="btn primary" style="width: 100%; margin: 0;">Continue Booking →</button>
+    </div>
+
+    <div class="annotation-track">
+      <div class="annotation-box">
+        <div class="annotation-title">Interactions</div>
+        <div class="annotation-item">Token auto-assigned on join</div>
+        <div class="annotation-item">Timer counts down live (WebSocket)</div>
+        <div class="annotation-item">Button enables on slot open</div>
+        <div class="annotation-item">Notify Me → SMS / App push</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       WIREFRAME 2: SMART SEARCH FILTERS
+  ============================================ -->
+  <div class="wf-wrapper">
+    <div class="wf-label"><span class="wf-num">02</span> Smart Search Filters</div>
+
+    <div class="phone" style="max-width: 320px;">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+
+        <!-- Header -->
+        <div class="header">
+          <div class="header-back">←</div>
+          <div class="header-title">BLR → MAS</div>
+          <div class="header-right">Tue 22</div>
+        </div>
+
+        <!-- Search bar -->
+        <div style="padding: 8px 12px; border-bottom: var(--border-light);">
+          <div style="border: var(--border); border-radius: var(--radius); padding: 8px 12px; display: flex; align-items: center; gap: 8px; background: var(--white);">
+            <span style="font-size: 12px; color: var(--mid);">⌕</span>
+            <span style="font-family: var(--mono); font-size: 11px; color: var(--light);">Bangalore to Chennai</span>
+          </div>
+        </div>
+
+        <!-- Date selector -->
+        <div style="display: flex; gap: 0; padding: 0 12px 8px; border-bottom: var(--border-light); overflow-x: auto; padding-top: 8px;">
+          <div style="display: flex; gap: 4px; flex-shrink: 0;">
+            <div style="font-family: var(--mono); font-size: 10px; padding: 5px 10px; border: var(--border-light); border-radius: 3px; color: var(--mid); background: var(--white);">Mon</div>
+            <div style="font-family: var(--mono); font-size: 10px; padding: 5px 10px; border: 2px solid var(--black); border-radius: 3px; font-weight: 600; background: var(--ghost);">Tue</div>
+            <div style="font-family: var(--mono); font-size: 10px; padding: 5px 10px; border: var(--border-light); border-radius: 3px; color: var(--mid); background: var(--white);">Wed</div>
+            <div style="font-family: var(--mono); font-size: 10px; padding: 5px 10px; border: var(--border-light); border-radius: 3px; color: var(--mid); background: var(--white);">Thu</div>
+          </div>
+        </div>
+
+        <!-- Filter chips -->
+        <div style="padding: 8px 12px 2px; display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); text-transform: uppercase; letter-spacing: 1px;">Filters</div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--dark); text-decoration: underline; cursor: pointer;">Clear All</div>
+        </div>
+        <div class="chip-row" style="padding-bottom: 8px; border-bottom: var(--border-light);">
+          <div class="chip active">Sleeper <span class="x">×</span></div>
+          <div class="chip active">Morning <span class="x">×</span></div>
+          <div class="chip active">Avail Only <span class="x">×</span></div>
+          <div class="chip">AC</div>
+          <div class="chip">Fastest</div>
+        </div>
+
+        <!-- Train cards -->
+        <div class="train-card">
+          <div class="train-card-top">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <div style="font-family: var(--mono); font-size: 11px; font-weight: 600;">Shatabdi Express</div>
+              <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); background: var(--ghost); padding: 2px 6px; border-radius: 3px;">12345</div>
+            </div>
+            <div class="time-row">
+              <span class="time-big">06:00</span>
+              <span class="time-arrow">- - - - - - →</span>
+              <span class="time-big">11:30</span>
+            </div>
+            <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); margin-top: 4px;">5h 30m · 347 km</div>
+          </div>
+          <div class="train-card-bottom">
+            <div style="font-family: var(--mono); font-size: 10px; color: var(--dark);">SL: <strong>42 avail</strong></div>
+            <div style="font-family: var(--mono); font-size: 10px; color: var(--mid);">₹395</div>
+            <button class="btn sm primary">Book</button>
+          </div>
+        </div>
+
+        <div class="train-card">
+          <div class="train-card-top">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <div style="font-family: var(--mono); font-size: 11px; font-weight: 600;">Brindavan Express</div>
+              <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); background: var(--ghost); padding: 2px 6px; border-radius: 3px;">12640</div>
+            </div>
+            <div class="time-row">
+              <span class="time-big">07:40</span>
+              <span class="time-arrow">- - - - - - →</span>
+              <span class="time-big">13:15</span>
+            </div>
+            <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); margin-top: 4px;">5h 35m · 347 km</div>
+          </div>
+          <div class="train-card-bottom">
+            <div style="font-family: var(--mono); font-size: 10px; color: var(--dark);">SL: <strong>8 avail</strong></div>
+            <div style="font-family: var(--mono); font-size: 10px; color: var(--mid);">₹380</div>
+            <button class="btn sm primary">Book</button>
+          </div>
+        </div>
+
+        <div class="scroll-hint">↓ 4 more trains</div>
+
+      </div>
+    </div>
+
+    <!-- Empty state mini -->
+    <div class="mini-state">
+      <div class="mini-state-label">Empty State — No Results</div>
+      <div class="empty-state" style="padding: 16px 0;">
+        <div class="empty-icon">∅</div>
+        <div style="font-family: var(--mono); font-size: 11px; font-weight: 600; text-align: center;">No trains match filters</div>
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--mid); text-align: center; line-height: 1.5;">Try removing some filters</div>
+        <button class="btn outline" style="width: 100%; margin: 6px 0 0;">Reset Filters</button>
+      </div>
+    </div>
+
+    <div class="annotation-track">
+      <div class="annotation-box">
+        <div class="annotation-title">Interactions</div>
+        <div class="annotation-item">Filters persist on back nav</div>
+        <div class="annotation-item">Instant result refresh on tap</div>
+        <div class="annotation-item">Chips removable individually</div>
+        <div class="annotation-item">Active chip count = badge</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       WIREFRAME 3: SEAT PREFERENCE SYNC
+  ============================================ -->
+  <div class="wf-wrapper">
+    <div class="wf-label"><span class="wf-num">03</span> Seat Preference Sync</div>
+
+    <div class="phone" style="max-width: 320px;">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+
+        <div class="header">
+          <div class="header-back">←</div>
+          <div class="header-title">Passenger Details</div>
+          <div class="header-right">Step 2/3</div>
+        </div>
+
+        <div class="section-gap"></div>
+
+        <!-- Passenger card -->
+        <div class="pax-card">
+          <div class="pax-header">
+            <span>Passenger 1</span>
+            <span style="color: var(--pale); font-size: 9px;">Edit</span>
+          </div>
+          <div class="pax-body">
+            <div class="pax-row">
+              <div class="pax-field" style="flex: 2;">Ravi Kumar</div>
+              <div class="pax-field" style="flex: 0.5; text-align: center;">34</div>
+              <div class="pax-field" style="flex: 0.7; text-align: center;">Male</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Berth locked -->
+        <div style="padding: 0 12px; margin-bottom: 4px;">
+          <div style="font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--mid); margin-bottom: 5px;">Berth Preference</div>
+        </div>
+        <div class="berth-lock">
+          <div>
+            <div class="berth-left">Lower Berth</div>
+            <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); margin-top: 2px;">Selected earlier · Preserved</div>
+          </div>
+          <div class="berth-badge">✓ Locked</div>
+        </div>
+
+        <!-- Buttons -->
+        <div style="display: flex; gap: 8px; padding: 0 12px; margin-bottom: 12px;">
+          <button class="btn outline sm" style="flex: 1; width: auto; margin: 0; padding: 9px;">Edit Preference</button>
+          <button class="btn primary sm" style="flex: 1; width: auto; margin: 0; padding: 9px;">Continue →</button>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Summary card -->
+        <div class="summary-card">
+          <div class="summary-header">Seat Preference Summary</div>
+          <div class="summary-row">
+            <span style="color: var(--mid);">Passenger 1</span>
+            <span style="font-weight: 600;">Lower Berth</span>
+          </div>
+          <div class="summary-row">
+            <span style="color: var(--mid);">Passenger 2</span>
+            <span style="font-weight: 600;">Window Preferred</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-row">
+            <div class="info-icon">✓</div>
+            <div>Preference from earlier session preserved</div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">i</div>
+            <div>Confirmed before payment — no surprises</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div class="mini-state">
+      <div class="mini-state-label">Error State — Berth Unavailable</div>
+      <div class="alert error" style="margin: 0 0 8px;">
+        <span>⚠</span>
+        <div>
+          <div style="font-family: var(--mono); font-size: 10px; font-weight: 600; margin-bottom: 2px;">Lower berth unavailable</div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--mid);">All lower berths assigned</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 6px;">
+        <button class="btn sm outline" style="flex: 1; width: auto; margin: 0; padding: 8px; font-size: 9px;">Side Lower</button>
+        <button class="btn sm" style="flex: 1; width: auto; margin: 0; padding: 8px; font-size: 9px; background: var(--ghost);">No Preference</button>
+      </div>
+    </div>
+
+    <div class="annotation-track">
+      <div class="annotation-box">
+        <div class="annotation-title">Annotations</div>
+        <div class="annotation-item">Preference stored in session state</div>
+        <div class="annotation-item">Confirmed before payment screen</div>
+        <div class="annotation-item">Reduces reset-on-back confusion</div>
+        <div class="annotation-item">Error → graceful fallback options</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       WIREFRAME 4: SESSION TIMEOUT + AUTOSAVE
+  ============================================ -->
+  <div class="wf-wrapper">
+    <div class="wf-label"><span class="wf-num">04</span> Session Timeout + Auto Save</div>
+
+    <div class="phone" style="max-width: 320px; position: relative;">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+
+        <!-- Autosave bar -->
+        <div class="autosave-bar">
+          <div class="status-dot pulse"></div>
+          <span>Draft saved 10 sec ago</span>
+        </div>
+
+        <div class="header" style="border-top: none;">
+          <div class="header-back">←</div>
+          <div class="header-title">Passenger Details</div>
+        </div>
+
+        <!-- Session timer badge -->
+        <div class="session-timer">⏱ 2:00</div>
+
+        <div class="section-gap"></div>
+
+        <!-- Form fields -->
+        <div style="padding: 0 12px; margin-bottom: 4px;">
+          <div style="font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--mid); margin-bottom: 5px;">Passenger 1</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Full Name</div>
+          <div class="field-value">Priya Sharma</div>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin: 0 12px 8px;">
+          <div class="field" style="flex: 1; margin: 0;">
+            <div class="field-label">Age</div>
+            <div class="field-value">28</div>
+          </div>
+          <div class="field" style="flex: 1; margin: 0;">
+            <div class="field-label">Gender</div>
+            <div class="field-value">Female</div>
+          </div>
+        </div>
+
+        <div style="padding: 0 12px; margin-bottom: 4px;">
+          <div style="font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--mid); margin-bottom: 5px;">Passenger 2</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">Full Name</div>
+          <div class="field-placeholder">Enter name...</div>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin: 0 12px 10px;">
+          <div class="field" style="flex: 1; margin: 0;">
+            <div class="field-label">Age</div>
+            <div class="field-placeholder">—</div>
+          </div>
+          <div class="field" style="flex: 1; margin: 0;">
+            <div class="field-label">Gender</div>
+            <div class="field-placeholder">—</div>
+          </div>
+        </div>
+
+        <!-- Modal overlay -->
+        <div class="modal-overlay">
+          <div class="modal-bg"></div>
+          <div class="modal-box">
+            <div style="font-family: var(--mono); font-size: 12px; font-weight: 600; margin-bottom: 4px; text-align: center;">Need more time?</div>
+            <div style="font-family: var(--mono); font-size: 10px; color: var(--mid); text-align: center; margin-bottom: 10px; line-height: 1.5;">Your details are safely saved.<br>Session expires in 0:45</div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn primary sm" style="flex: 1; width: auto; margin: 0; padding: 9px;">Extend Session</button>
+              <button class="btn outline sm" style="flex: 1; width: auto; margin: 0; padding: 9px;">Continue Later</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticky proceed -->
+        <div class="sticky-bar" style="margin-top: 24px;">
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--mid);">Total · ₹790</div>
+          <button class="btn primary sm" style="padding: 9px 20px;">Proceed to Payment →</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="annotation-track">
+      <div class="annotation-box">
+        <div class="annotation-title">Annotations</div>
+        <div class="annotation-item">Autosave every 15 sec (localStorage)</div>
+        <div class="annotation-item">Session timer always visible top-right</div>
+        <div class="annotation-item">Modal warns at 60s remaining</div>
+        <div class="annotation-item">Continue Later = save & exit</div>
+        <div class="annotation-item">Prevents complete data loss</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       WIREFRAME 5: BEFORE vs AFTER COMPARISON
+  ============================================ -->
+  <div class="wf-wrapper" style="grid-column: 1 / -1;">
+    <div class="wf-label"><span class="wf-num">05</span> Mobile Responsive Redesign — Before vs After</div>
+
+    <div class="compare-grid">
+
+      <!-- BEFORE -->
+      <div class="compare-phone">
+        <div class="compare-notch"></div>
+        <div class="compare-screen">
+          <div class="compare-label-bar"><span class="cross">✕</span> Before — Broken Mobile UI</div>
+
+          <!-- Cramped header -->
+          <div style="display: flex; align-items: center; padding: 6px 8px; border-bottom: 1px solid var(--pale); gap: 4px; background: var(--ghost);">
+            <div style="font-family: var(--mono); font-size: 8px; font-weight: 600;">BLR→MAS</div>
+            <div style="font-family: var(--mono); font-size: 7px; color: var(--mid); margin-left: auto; white-space: nowrap;">Tue Apr 22 · Sort ▼ Filter ▼ Class ▼</div>
+          </div>
+
+          <!-- Cramped filter row (horizontal scroll implied) -->
+          <div style="padding: 4px; border-bottom: 1px solid var(--pale); overflow: hidden;">
+            <div style="font-family: var(--mono); font-size: 8px; color: var(--mid); margin-bottom: 2px;">← scroll →</div>
+            <div class="cramped-row">
+              <div class="cramped-btn">SL Class</div>
+              <div class="cramped-btn">Morning</div>
+              <div class="cramped-btn">Avail</div>
+              <div class="cramped-btn">AC 2T</div>
+              <div class="cramped-btn">AC 3T</div>
+              <div class="cramped-btn">Fast</div>
+            </div>
+          </div>
+
+          <!-- Cramped cards -->
+          <div style="padding: 4px; border-bottom: 1px solid var(--pale);">
+            <div style="border: 1px solid var(--pale); padding: 4px 6px; border-radius: 2px; margin-bottom: 4px; background: var(--white);">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 2px;">
+                <div style="font-family: var(--mono); font-size: 8px; font-weight: 600; flex: 2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Shatabdi Express 12345</div>
+                <div style="font-family: var(--mono); font-size: 8px;">06:00-11:30</div>
+                <div style="font-family: var(--mono); font-size: 7px; background: var(--ghost); padding: 2px 4px; border-radius: 2px; white-space: nowrap;">42 SL</div>
+                <div style="font-family: var(--mono); font-size: 7px; background: var(--black); color: var(--white); padding: 2px 4px; border-radius: 1px;">BK</div>
+              </div>
+            </div>
+            <div style="border: 1px solid var(--pale); padding: 4px 6px; border-radius: 2px; margin-bottom: 4px; background: var(--white);">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 2px;">
+                <div style="font-family: var(--mono); font-size: 8px; font-weight: 600; flex: 2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Brindavan Exp 12640</div>
+                <div style="font-family: var(--mono); font-size: 8px;">07:40-13:15</div>
+                <div style="font-family: var(--mono); font-size: 7px; background: var(--ghost); padding: 2px 4px; border-radius: 2px; white-space: nowrap;">8 SL</div>
+                <div style="font-family: var(--mono); font-size: 7px; background: var(--black); color: var(--white); padding: 2px 4px; border-radius: 1px;">BK</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Issues annotations -->
+          <div style="padding: 8px 8px 4px;">
+            <div style="font-family: var(--mono); font-size: 8px; color: var(--mid); font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Issues</div>
+            <div style="font-family: var(--mono); font-size: 9px; color: var(--dark); line-height: 1.7;">
+              ✕ Tiny tap targets (&lt;24px)<br>
+              ✕ Horizontal scroll required<br>
+              ✕ Cramped, unreadable text<br>
+              ✕ Book button too small<br>
+              ✕ Cluttered layout density<br>
+              ✕ No visual hierarchy
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- AFTER -->
+      <div class="compare-phone">
+        <div class="compare-notch"></div>
+        <div class="compare-screen">
+          <div class="compare-label-bar" style="background: var(--dark);"><span class="check">✓</span> After — Mobile-First UI</div>
+
+          <!-- Clean header -->
+          <div class="header" style="border-bottom: var(--border);">
+            <div class="header-back">←</div>
+            <div class="header-title">BLR → MAS</div>
+            <div class="header-right">22 Apr</div>
+          </div>
+
+          <!-- Expandable filter toggle -->
+          <div style="padding: 8px 10px; border-bottom: var(--border-light); display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; gap: 5px;">
+              <div class="chip active" style="font-size: 9px; padding: 3px 8px;">Sleeper ×</div>
+              <div class="chip active" style="font-size: 9px; padding: 3px 8px;">Morning ×</div>
+            </div>
+            <button style="font-family: var(--mono); font-size: 10px; border: var(--border); background: var(--white); padding: 5px 10px; border-radius: var(--radius);">⊕ Filter</button>
+          </div>
+
+          <!-- Clean train cards -->
+          <div class="train-card" style="margin: 10px 10px 8px;">
+            <div class="train-card-top">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                <div>
+                  <div style="font-family: var(--mono); font-size: 12px; font-weight: 600;">Shatabdi Express</div>
+                  <div style="font-family: var(--mono); font-size: 9px; color: var(--mid);">5h 30m · Daily</div>
+                </div>
+                <div style="font-family: var(--mono); font-size: 14px; font-weight: 600;">₹395</div>
+              </div>
+              <div class="time-row">
+                <span class="time-big">06:00</span>
+                <span class="time-arrow">— — — →</span>
+                <span class="time-big">11:30</span>
+              </div>
+            </div>
+            <div class="train-card-bottom" style="padding: 8px 12px;">
+              <div style="font-family: var(--mono); font-size: 10px;"><span style="color: var(--mid);">SL</span> · <strong>42 seats</strong></div>
+              <button class="btn primary sm" style="padding: 9px 20px; font-size: 11px;">Book</button>
+            </div>
+          </div>
+
+          <!-- Improvements -->
+          <div style="padding: 4px 10px 4px;">
+            <div style="font-family: var(--mono); font-size: 8px; color: var(--mid); font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Improvements</div>
+            <div style="font-family: var(--mono); font-size: 9px; color: var(--dark); line-height: 1.7;">
+              ✓ Large tap targets (44px+)<br>
+              ✓ Clean card hierarchy<br>
+              ✓ Expandable filter drawer<br>
+              ✓ Sticky Book button<br>
+              ✓ Easy thumb-zone reach<br>
+              ✓ Faster — fewer mis-taps
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="annotation-track" style="max-width: 680px;">
+      <div class="annotation-box">
+        <div class="annotation-title">UX Gains</div>
+        <div class="annotation-item">Thumb-reach optimized booking button</div>
+        <div class="annotation-item">Filters collapse to save vertical space</div>
+        <div class="annotation-item">Min 44×44px touch targets throughout</div>
+      </div>
+      <div class="annotation-box">
+        <div class="annotation-title">Before Patterns</div>
+        <div class="annotation-item">Horizontal scroll creates disorientation</div>
+        <div class="annotation-item">Tiny buttons cause mis-tap rage</div>
+        <div class="annotation-item">Cluttered rows hide key info</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       WIREFRAME 6: REFUND CLARITY CALCULATOR
+  ============================================ -->
+  <div class="wf-wrapper" style="grid-column: span 2;">
+    <div class="wf-label"><span class="wf-num">06</span> Refund Clarity Calculator</div>
+
+    <div class="phone" style="max-width: 320px; margin: 0 auto;">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+
+        <div class="header">
+          <div class="header-back">←</div>
+          <div class="header-title">Cancel Ticket</div>
+        </div>
+
+        <div class="section-gap"></div>
+
+        <!-- Ticket summary -->
+        <div class="box">
+          <div class="box-label">Ticket Summary</div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <div>
+              <div style="font-family: var(--mono); font-size: 12px; font-weight: 600;">Karnataka Express</div>
+              <div style="font-family: var(--mono); font-size: 10px; color: var(--mid);">SBC → MYS · Sleeper · 1 pax</div>
+            </div>
+            <div style="font-family: var(--mono); font-size: 13px; font-weight: 600;">₹950</div>
+          </div>
+          <div style="font-family: var(--mono); font-size: 9px; color: var(--mid); background: var(--ghost); padding: 4px 8px; border-radius: 3px; display: inline-block;">
+            PNR: 4223019875
+          </div>
+        </div>
+
+        <!-- Refund breakdown -->
+        <div style="padding: 0 12px; margin-bottom: 4px;">
+          <div style="font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--mid); margin-bottom: 6px;">Refund Breakdown</div>
+        </div>
+
+        <div class="box" style="padding: 10px 12px;">
+          <div class="refund-row">
+            <span style="font-family: var(--mono); font-size: 11px; color: var(--mid);">Fare Paid</span>
+            <span style="font-family: var(--mono); font-size: 11px;">₹950</span>
+          </div>
+          <div class="refund-row">
+            <span style="font-family: var(--mono); font-size: 11px; color: var(--mid);">Cancellation Charge</span>
+            <span style="font-family: var(--mono); font-size: 11px; color: var(--dark);">− ₹120</span>
+          </div>
+          <div class="refund-row">
+            <span style="font-family: var(--mono); font-size: 11px; color: var(--mid);">GST / Service Fees</span>
+            <span style="font-family: var(--mono); font-size: 11px; color: var(--dark);">− ₹20</span>
+          </div>
+          <div class="refund-total">
+            <span style="font-family: var(--mono); font-size: 13px; font-weight: 600;">Refund Amount</span>
+            <span style="font-family: var(--mono); font-size: 18px; font-weight: 600;">₹810</span>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="status-bar" style="margin: 0 0 0; justify-content: center; gap: 8px;">
+          <span>⏱</span>
+          <span>Expected refund: <strong>3–5 business days</strong></span>
+        </div>
+
+        <div class="section-gap"></div>
+
+        <!-- Checkbox -->
+        <div class="checkbox-row">
+          <div class="checkbox-box">✓</div>
+          <div class="checkbox-text">I understand cancellation is irreversible and the refund amount shown is final</div>
+        </div>
+
+        <!-- Buttons -->
+        <button class="btn outline" style="border: 2px solid var(--black);">Keep Ticket</button>
+        <button class="btn" style="background: var(--dark); color: var(--white); border-color: var(--dark);">Confirm Cancellation</button>
+
+      </div>
+    </div>
+
+    <div class="annotation-track" style="max-width: 320px; margin-left: auto; margin-right: auto;">
+      <div class="annotation-box">
+        <div class="annotation-title">Annotations</div>
+        <div class="annotation-item">Refund amount calculated before confirm</div>
+        <div class="annotation-item">Checkbox gates confirm button</div>
+        <div class="annotation-item">Clear breakdown builds trust</div>
+        <div class="annotation-item">Reduces IRCTC support tickets</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Legend -->
+<div style="max-width: 600px; margin: 56px auto 0; border-top: var(--border); padding-top: 24px;">
+  <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); text-align: center; margin-bottom: 16px;">Wireframe Legend</div>
+  <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+    <div style="display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--mid);">
+      <div style="width: 24px; height: 12px; border: 1.5px solid var(--black); border-radius: 2px; background: var(--white);"></div>Component Box
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--mid);">
+      <div style="width: 24px; height: 12px; border: 1.5px dashed var(--pale); border-radius: 2px;"></div>Annotation / Info
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--mid);">
+      <div style="width: 24px; height: 12px; background: var(--black); border-radius: 2px;"></div>Primary Action
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--mid);">
+      <div style="width: 24px; height: 12px; background: var(--ghost); border: 1.5px solid var(--pale); border-radius: 2px;"></div>Disabled State
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--mid);">
+      <div style="width: 24px; height: 8px; background: repeating-linear-gradient(45deg, #333 0, #333 2px, #888 2px, #888 5px);"></div>Progress Fill
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
